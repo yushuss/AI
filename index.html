@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON 示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON 示例页面</h1>
+    
+    <!-- JSON 数据示例 -->
+    <h2>JSON 数据示例</h2>
+    <pre id="jsonExample">
+{
+    "name": "张三",
+    "age": 30,
+    "isStudent": false,
+    "hobbies": ["阅读", "游泳", "编程"],
+    "address": {
+        "city": "北京",
+        "zipCode": "100000"
+    }
+}
+    </pre>
+    
+    <!-- JSON 解析示例 -->
+    <h2>JSON 解析示例</h2>
+    <button id="parseBtn">解析 JSON</button>
+    <div id="result"></div>
+    
+    <!-- JSON 创建示例 -->
+    <h2>JSON 创建示例</h2>
+    <button id="createBtn">创建 JSON</button>
+    <pre id="createdJson"></pre>
+    
+    <script>
+        // 解析 JSON 示例
+        document.getElementById('parseBtn').addEventListener('click', function() {
+            // 获取 JSON 字符串
+            const jsonStr = document.getElementById('jsonExample').textContent;
+            
+            try {
+                // 解析 JSON 字符串为 JavaScript 对象
+                const data = JSON.parse(jsonStr);
+                
+                // 显示解析结果
+                let resultHtml = '<h3>解析结果:</h3>';
+                resultHtml += `<p>姓名: ${data.name}</p>`;
+                resultHtml += `<p>年龄: ${data.age}</p>`;
+                resultHtml += `<p>是否学生: ${data.isStudent ? '是' : '否'}</p>`;
+                resultHtml += `<p>爱好: ${data.hobbies.join(', ')}</p>`;
+                resultHtml += `<p>城市: ${data.address.city}</p>`;
+                resultHtml += `<p>邮编: ${data.address.zipCode}</p>`;
+                
+                document.getElementById('result').innerHTML = resultHtml;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p style="color: red">解析错误: ${error.message}</p>`;
+            }
+        });
+        
+        // 创建 JSON 示例
+        document.getElementById('createBtn').addEventListener('click', function() {
+            // 创建 JavaScript 对象
+            const person = {
+                name: "李四",
+                age: 25,
+                isStudent: true,
+                courses: ["数学", "物理", "计算机科学"],
+                scores: {
+                    math: 90,
+                    physics: 85,
+                    computerScience: 95
+                }
+            };
+            
+            // 将 JavaScript 对象转换为 JSON 字符串
+            const jsonString = JSON.stringify(person, null, 4);
+            
+            // 显示创建的 JSON
+            document.getElementById('createdJson').textContent = jsonString;
+        });
+    </script>
+</body>
+</html>
